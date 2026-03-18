@@ -1,4 +1,4 @@
-﻿﻿@if (Request.IsAuthenticated && !string.IsNullOrEmpty(ViewBag.IsAuthorize))
+@if (Request.IsAuthenticated && !string.IsNullOrEmpty(ViewBag.IsAuthorize))
 {
     @model VIS.Models.LoginModel
 
@@ -18,7 +18,7 @@
 
     if (!ViewBag.disableMenu)
     {
-        <ul class="vis-app-hdr-l">
+        <!--<ul class="vis-app-hdr-l">
             <li>
                 <a href="javascript:void(0)" class="vis-app-hdr-l-menu" title="@GetMsg((string)ViewBag.culture, "AppMenu") @GetMsg((string)ViewBag.culture, "Shct_AppMenu")" id="vis_appMenu">
                     <i class="fa fa-bars"></i>
@@ -34,16 +34,50 @@
             </li>
 
             <!-- Show Config File Name If Auto data marking enabled -->
-            @*<li class="vis-blinkingDotContainer vis-hideadmconfigblock" id="vis_recordingADM"><div class="vis-blinking-dot"></div></li>
-                <li class="vis-hideadmconfigblock" id="vis_configfile">
-                    <span class="d-inline-block vis-autodatamarkingfilename mr-1 vis-autodataMkFilename" id="vis_configfilename"></span>
-                    <span class="d-inline-block vis-autodatafontplus" id="vis_addconfigfile"><i class="fa fa-plus-circle" aria-hidden="true"></i></span>
-                </li>*@
+        @*<li class="vis-blinkingDotContainer vis-hideadmconfigblock" id="vis_recordingADM"><div class="vis-blinking-dot"></div></li>
+            <li class="vis-hideadmconfigblock" id="vis_configfile">
+                <span class="d-inline-block vis-autodatamarkingfilename mr-1 vis-autodataMkFilename" id="vis_configfilename"></span>
+                <span class="d-inline-block vis-autodatafontplus" id="vis_addconfigfile"><i class="fa fa-plus-circle" aria-hidden="true"></i></span>
+            </li>*@
 
 
-            @*<li><a href="javascript:void(0)" class="vis-icons-menuBar vis-icon-alerts" title="Alerts">Alerts</a><span class="vis-notify-counter">55</span></li>*@
-            @*<li><a href="javascript:void(0)" class="vis-icons-menuBar vis-icon-call" title="@GetMsg((string)ViewBag.culture, "VA048_CallingInterface")" id="vis_appCall">Call</a></li>*@
+        @*<li><a href="javascript:void(0)" class="vis-icons-menuBar vis-icon-alerts" title="Alerts">Alerts</a><span class="vis-notify-counter">55</span></li>*@
+        @*<li><a href="javascript:void(0)" class="vis-icons-menuBar vis-icon-call" title="@GetMsg((string)ViewBag.culture, "VA048_CallingInterface")" id="vis_appCall">Call</a></li>*@
+        //</ul>-->
+
+        <!--TSKYSVA01-->
+        <ul class="vis-app-hdr-l">
+            <li>
+                <a href="javascript:void(0)" class="vis-app-hdr-l-menu" title="@GetMsg((string)ViewBag.culture, "AppMenu") @GetMsg((string)ViewBag.culture, "Shct_AppMenu")" id="vis_appMenu">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </li>
+            <li>
+                <span class="vis-app-v-line"></span>
+            </li>
+            <li style="display:none">
+                <a href="javascript:void(0)" class="vis-app-hdr-l-menu" title="@GetMsg((string)ViewBag.culture, "InfoWindow")" id="vis_appInfoWindow">
+                    <i class="fa fa-info"></i>
+                </a>
+            </li>
         </ul>
+
+        <ul class="vis-app-hdr-l">
+            <li>
+                <a href="javascript:void(0)" class="vis-app-hdr-l-menu" title="@GetMsg((string)ViewBag.culture, "AppMenu") @GetMsg((string)ViewBag.culture, "Shct_AppMenu")" id="vis_appMenuNew">
+                    <i class="fa fa-ellipsis-v"></i>
+                </a>
+            </li>
+            <li>
+                <span class="vis-app-v-line"></span>
+            </li>
+            <li style="display:none">
+                <a href="javascript:void(0)" class="vis-app-hdr-l-menu" title="@GetMsg((string)ViewBag.culture, "InfoWindow")" id="vis_appInfoWindow">
+                    <i class="fa fa-info"></i>
+                </a>
+            </li>
+        </ul>
+
     }
     else
     {

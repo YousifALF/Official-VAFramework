@@ -1,4 +1,4 @@
-﻿
+
 ; (function (VIS) { // scope
 
     /* main UI manager 
@@ -24,7 +24,10 @@
         var $shortcutUL = $("#vis_taskbar"); // [dynamic shortcut]
 
         var $vis_appMenu = $("#vis_appMenu"); // app menu
-        var $vis_mainMenu = $("#vis_mainMenu"); // 
+        var $vis_mainMenu = $("#vis_mainMenu"); //
+        var $vis_appMenuNew = $("#vis_appMenuNew"); //
+        var $ASI01menu = $('.ASI01-menu');
+
         var $vis_closeMenu = $("#vis_closeMenu"); // menu close button
         var $vis_CloudDaysLeft = $('#vis_cloud_daysleft');
 
@@ -47,7 +50,9 @@
 
         var $showFav = $('#vis_favHomeScreen');
         var $favContainer = $('#vis_home_favourites');
-        
+
+
+
         // button for opening calling interface
         //var $vis_appCall = $("#vis_appCall");
 
@@ -100,15 +105,157 @@
             });
 
 
+
+            $vis_appMenuNew.on("click", function (event) {
+                var $ASI01menu = $('.ASI01-menu');
+
+                if ($ASI01menu.css('display') === 'none') {
+                    $ASI01menu.css('display', 'block');
+                } else {
+                    $ASI01menu.css('display', 'none');
+                }
+            });
+
+
+
+            $(window).on("load", function () {
+              //  showMenu();
+                $ASI01menu.attr('style', 'display: block !important');
+            });
+
+
+            // When user clicks any menu item (Yousif menu)
+            $(document).on('click', '.YOUSIF-nm-opt-link', function (e) {
+                e.preventDefault();
+
+                var $clicked = $(this);
+                var appId = $clicked.data('value');   // 1000326 etc.
+                if (!appId) return;
+
+                var menuKey = 'menuAppID_' + appId;
+
+                // get vis-testing ONLY inside VIS-Yousif-AS-Menu and matching menuKey
+                var $visTesting = $('.VIS-Yousif-AS-Menu')
+                    .find('.vis-testing')
+                    .filter(function () {
+                        return $(this)
+                            .find('.vis-nm-subnavmainApp[data-menuid="' + menuKey + '"]')
+                            .length > 0;
+                    })
+                    .first();
+
+                if (!$visTesting.length) return;
+
+                // If this one is already visible, hide it; otherwise show it
+                if ($visTesting.is(':visible')) {
+                    $visTesting.slideUp();
+                } else {
+                    // Optionally close any other open vis-testing first
+                    $('.vis-testing:visible').not($visTesting).slideUp();
+
+                    $visTesting.insertAfter($clicked).slideDown();
+                }
+            });
+            // click on any node item inside vis-testing
+            $(document).on('click', '.vis-testing .Yousif-NodeItem', function (e) {
+
+                e.preventDefault();
+                e.stopImmediatePropagation();
+
+                var $node = $(this);
+
+                var action = $node.data('action');
+                var actionId = $node.data('actionid');
+                var value = $node.data('value');
+                var name = $node.data('name')
+                    || $node.attr('title')
+                    || $.trim($node.find('.vis-navTxt').text());
+
+                startMenuAction(action, actionId);
+                //alert('Clicked: ' + name +
+                //    '\nAction: ' + action +
+                //    '\nActionId: ' + actionId);
+
+            });
+            $(document).on('click', '.vis-testing .Yousif-NodeItem .vis-nm-MenuFav', function (e) {
+                e.preventDefault();
+                e.stopImmediatePropagation();
+                var $fav = $(this);
+                var name = $fav.data('name');
+                var value = $fav.data('value');
+                var action = $fav.data('action');
+                var actionId = $fav.data('actionid');
+
+
+                VIS.FavouriteHelper.addDelFav($fav);
+
+                //alert(
+                //    'Favorite Clicked:\n' +
+                //    'Name: ' + name +
+                //    '\nValue: ' + value +
+                //    '\nAction: ' + action +
+                //    '\nActionId: ' + actionId
+                //);
+
+            });
+
+
             function menuItemClick(event) {
 
+             //   alert('Yousif2');
                 // vis0008 changes done for new menu
+                var NewMenu = 'Y';
                 var $target = $(event.target);
                 if (!$target.hasClass("VIS-nm-opt-link")) {
                     $target = $target.parent();
                     if (!$target.hasClass("VIS-nm-opt-link"))
                         return;
                 }
+
+                if (NewMenu == 'Y') {
+                    // Update app menu label and icon
+                    $appMenuDiv.css("display", "flex");
+                    $appMenuDiv.find(".vis-nm-selAppLabel").text($target.find('span').text()).attr('title', $target.find('span').text());
+                    if ($target.find("img").length > 0) {
+                        $appMenuDiv.find("i").css("display", "none");
+                        $appMenuDiv.find("img").css("display", "block");
+                        $appMenuDiv.find("img").attr("src", $target.find("img").attr("src"));
+                    }
+                    else {
+                        $appMenuDiv.find("i").css("display", "block");
+                        $appMenuDiv.find("img").css("display", "none");
+                        $appMenuDiv.find("i").attr("class", $target.find("i").attr("class")).css("color", $target.find("i").css("color"));
+                    }
+                    // Load navbar: folders and their sub-folders (vis-nm-subMenuCat with vis-subnav-content)
+                    $navMenuAction.empty();
+                    var appItems = $menuTree.find("[data-menuid='menuAppID_" + $target.attr("data-value") + "']");
+                    if (appItems.length > 0) {
+                        $navMenuAction.css("width", "auto");
+                        bindScrollMenuEvents(false);
+                        if (scrollLeftButton) {
+                            scrollLeftButton.css("display", "none");
+                            scrollRightButton.css("display", "none");
+                        }
+                        var totHdrWidth = $topHdrDiv.width();
+                        // Clone app menu content: each li.vis-nm-subMenuCat includes its dropdown (vis-subnav-content > vis-subnav-links) with sub items
+                        $navMenuAction.append($(appItems[0].children).clone());
+                        var width = totHdrWidth - $appMenuDiv.width() - 300;
+                        if ($navMenuAction.width() > width) {
+                            $navMenuAction.css("width", width - 20 + "px");
+                            if (scrollLeftButton) {
+                                bindScrollMenuEvents(true);
+                                scrollLeftButton.css("display", "block");
+                                scrollRightButton.css("display", "block");
+                            }
+                        }
+                        hideMenu();
+                        if ($target.data("actionid") > 0) {
+                            startMenuAction($target.data('action'), $target.data('actionid'));
+                        }
+                    }
+                    return;
+                }
+
                 $appMenuDiv.css("display", "flex");
                 $appMenuDiv.find(".vis-nm-selAppLabel").text($target.find('span').text()).attr('title', $target.find('span').text());
                 if ($target.find("img").length > 0) {
@@ -143,7 +290,7 @@
                         }
                     }
                     hideMenu();
-                    if ($target.data("actionid")>0) {
+                    if ($target.data("actionid") > 0) {
                         startMenuAction($target.data('action'), $target.data('actionid')); //start action
                     }
                     //else if ($(e.target).is('span')) {
@@ -364,7 +511,6 @@
                         $($target.siblings('label')).css('border', '1px solid white');
                     });
 
-
                 }, 2);
                 showMenu(); // show the menu
             });
@@ -399,7 +545,7 @@
                 $vis_menuSearch.bind('input', function () {
                     searchAndStartAction($vis_menuSearch.val(), this.list);
                 });
-            }           
+            }
 
             //$('#visMarket').click(function () {
             //    var type = VIS.Utility.getFunctionByName('Market.ImpModule.Market_', window);
@@ -476,7 +622,7 @@
                 }
             }, 500);
 
-            
+
 
         };
 
@@ -667,7 +813,7 @@
                 //if (itm[0].id == "vis_lhome")
                 //    return;
 
-                
+
                 //curSelTaskBarItem = itm.css('background-color', '#D7E3E7');
                 curSelTaskBarItem = itm.addClass('vis-app-f-selected');
                 itm = null;
@@ -1131,7 +1277,7 @@
                         $selectedOption.position().top + $dropdownMenu.scrollTop() - $dropdownMenu.height() / 2
                     );
                 }
-            },500)
+            }, 500)
 
         }
 
@@ -1241,7 +1387,7 @@
                 })
                     .fail(function (result) {
 
-                        alert("deskMgrErr "+ result);
+                        alert("deskMgrErr " + result);
                     });
             }
         };
@@ -1335,7 +1481,7 @@
                     text: this.Name
                 }).appendTo(combo);
             });
-            setting = false;          
+            setting = false;
         };
         function setHiddenOrgFilter() {
             var orgFilter = "";
@@ -1348,7 +1494,7 @@
                 }
 
                 for (var i = 0; i < selVals.length; i++) {
-                    if (selVals[i] !="") {
+                    if (selVals[i] != "") {
                         if (orgFilter != "") {
                             orgFilter += ',';
                         }

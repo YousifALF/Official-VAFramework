@@ -1,4 +1,4 @@
-﻿using Microsoft.Owin.Security;
+using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OpenIdConnect;
 using System;
@@ -337,6 +337,7 @@ namespace VIS.Controllers
                         else
                         {
                             ViewBag.TreeHtml = mnuHelper.GetNewMenuTreeUI(ViewBag.Menu.GetRootNode(), @Url.Content("~/"));
+                            ViewBag.TreeHtmlYousif = mnuHelper.GetNewMenuTreeUIYousif(ViewBag.Menu.GetRootNode(), @Url.Content("~/"));
                         }
                     }
 

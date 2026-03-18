@@ -1,4 +1,4 @@
-﻿using System.Threading;
+using System.Threading;
 using System.Web.Mvc;
 using System.Web.Optimization;
 namespace VIS
@@ -230,6 +230,14 @@ namespace VIS
             //modScript_v2.Include("~/Areas/VIS/Scripts/VIS2_0.min.js");
 
 
+            style.Include("~/Areas/VIS/Content/Menu.css"
+           );
+
+            modScript.Include(
+                 "~/Areas/VIS/Scripts/app/desktopmgr.js"
+
+           );
+
             /// with webpack and want to genrate files with version
             style.Include("~/Areas/VIS/Content/VIS.all.min{version}.css");
             modScript.Include("~/Areas/VIS/Scripts/dist/VIS.all.min{version}.js",
@@ -237,7 +245,6 @@ namespace VIS
                 );
             modScript_v1.Include("~/Areas/VIS/Scripts/VIS1_0.min.js");
             modScript_v2.Include("~/Areas/VIS/Scripts/dist/VIS2_0.min{version}.js");
-
 
 
 

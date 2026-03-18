@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -145,6 +145,35 @@ namespace VIS.Helpers
 
         }
 
+        public string GetNewMenuTreeUIYousif(VTreeNode root, string baseUrl, string windowNo = "", string tableName = "table")
+        {
+            mainContainerHTML = new StringBuilder("<div class='VIS-Yousif-AS-Menu'>");
+
+            leftMenuHTML = new StringBuilder();
+
+            menu1HTML = new StringBuilder();
+            menu2HTML = new StringBuilder();
+            settingsHTML = new StringBuilder();
+            lstMenuSections = new List<string>();
+            CreateNewTree(root.Nodes, baseUrl, windowNo);
+
+            for (int i = 0; i < lstMenuSections.Count; i++)
+            {
+                lstMenuSections[i] = lstMenuSections[i]
+                    .Replace("vis-nav-horizontal-scroll-onhover-items vis-subnav-content", "Yousif-Pages-Paranet")
+                    .Replace("vis-subnav-links", "Yousif-SubNav")
+                    .Replace("vis-nm-NodeItem", "Yousif-NodeItem");
+            }
+
+            leftMenuHTML = new StringBuilder(
+                             leftMenuHTML.ToString().Replace("VIS-nm-opt-link", "YOUSIF-nm-opt-link"));
+
+            mainContainerHTML.Append(leftMenuHTML.ToString() + ""
+                + String.Join(" ", lstMenuSections.ToArray()) + "</div>");
+
+            return mainContainerHTML.ToString();
+
+        }
 
         /// <summary>
         /// get Menu Tree html String 

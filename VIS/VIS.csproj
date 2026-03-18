@@ -800,6 +800,12 @@
     <Content Include="Areas\VIS\Scripts\app\viewmanager.js" />
     <Content Include="Areas\VIS\Scripts\app\windowformcontainer.js" />
     <Content Include="Areas\VIS\Scripts\app\windowframe.js" />
+    <Content Include="Areas\VIS\Scripts\dist\494.js" />
+    <Content Include="Areas\VIS\Scripts\dist\926.js" />
+    <Content Include="Areas\VIS\Scripts\dist\React.min1.0.0.1.js" />
+    <Content Include="Areas\VIS\Scripts\dist\VIS.all.min3.1.61.0.js" />
+    <Content Include="Areas\VIS\Scripts\dist\VIS.min3.1.48.0.js" />
+    <Content Include="Areas\VIS\Scripts\dist\VIS2_0.min3.1.61.0.js" />
     <Content Include="Areas\VIS\Scripts\F20\acontentpane.js" />
     <Content Include="Areas\VIS\Scripts\F20\afiltercontrols.js" />
     <Content Include="Areas\VIS\Scripts\F20\afilterpanel.js" />
@@ -1022,7 +1028,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\VIS\Scripts\app\processengine\" />
-    <Folder Include="Areas\VIS\Scripts\dist\" />
     <Folder Include="Areas\VIS\Scripts\widgets\NewFolder1\" />
     <Folder Include="Areas\VIS\Views\AmountDivision\" />
     <Folder Include="Areas\VIS\Views\ArchiveViewer\" />

@@ -1,4 +1,79 @@
-﻿/*New Menu Start*/
+
+.ASI01-menu {
+    width: 300px;
+    background: #f5f5f5;
+    padding: 15px;
+    border-radius: 8px;
+    font-family: Arial;
+}
+
+.ASI01-folder {
+    margin-bottom: 10px;
+}
+
+.ASI01-folder-title {
+    font-weight: bold;
+    cursor: pointer;
+    padding: 6px;
+}
+
+.ASI01-subfolder {
+    margin-left: 15px;
+    margin-top: 5px;
+}
+
+.ASI01-subfolder-title {
+    cursor: pointer;
+    padding: 5px;
+}
+
+.ASI01-screen {
+    margin-left: 25px;
+    padding: 4px;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+    .ASI01-screen:hover {
+        background: #e0e0e0;
+    }
+
+
+
+.YOUSIF-nm-opt-link{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:8px 12px;
+    text-decoration:none;
+    color:#333;
+    font-family:Arial;
+    font-size:14px;
+    border-radius:6px;
+    transition:all 0.2s ease;
+}
+
+/* hover */
+.YOUSIF-nm-opt-link:hover{
+    background:#f2f2f2;
+    color:#000;
+}
+
+/* icon */
+.YOUSIF-nm-opt-link i{
+    font-size:16px;
+    width:18px;
+    text-align:center;
+}
+
+/* text */
+.YOUSIF-nm-opt-link span{
+    flex:1;
+}
+
+
+
+/*New Menu Start*/
 
 .VIS-nm-col-5 {
     grid-template-columns: repeat(5, 1fr);
@@ -280,10 +355,10 @@
     text-align: left;
     white-space: nowrap;
     text-overflow: ellipsis;
-    margin-left:.2rem;
-    align-content:center;
-    vertical-align:middle;
-    margin-top:.1rem;
+    margin-left: .2rem;
+    align-content: center;
+    vertical-align: middle;
+    margin-top: .1rem;
 }
 
 /* Navigation Menu*/

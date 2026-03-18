@@ -1003,7 +1003,7 @@ html[dir=rtl] .form-check-input {
 }
 
 html[dir=rtl] .vis-footer-ui-fix {
-    padding-right: 35px !important;
+    padding-right: 85px !important;
 }
 
 
@@ -1027,81 +1027,15 @@ html[dir="rtl"] .VIS-winSearch-NonDefaultIcon {
 
 html[dir="rtl"] .vis-fp-popup-arrow {
     right: 10px !important;
-    left: unset !important;
+    left:unset !important;
 }
 
 html[dir="rtl"] .vis-fttrBtn button {
-    text-align: center !important;
+    text-align: center;
 }
 
 html[dir="rtl"] .vis-clearFilter {
     right: unset;
     left: 5px !important;
 }
-
-html[dir="rtl"] .vis-ad-w-p-vc-editview .vis-ev-col-fieldgroup {
-    background: linear-gradient(-90deg, rgba(var(--v-c-primary), .1) 0, hsla(0, 0%, 100%, 0) 100%);
-}
-
-    html[dir="rtl"] .vis-ad-w-p-vc-editview .vis-ev-col-fieldgroup .vis-ev-col-fg-more {
-        border-left: 1px solid rgba(var(--v-c-on-secondary), .6) !important;
-        border-right: unset;
-    }
-
-
-html[dir="rtl"] .vis-wfm-step-col {
-    margin-left: 0px;
-    margin-right: 8px;
-}
-
-html[dir="rtl"] .vis-wfm-step-box {
-    margin-right: 0px;
-    margin-left: 15px;
-}
-
-html[dir="rtl"] .vis-wfm-status-msg {
-    margin-right: 0px;
-    margin-left: .5rem;
-}
-
-html[dir="rtl"] .vis-wfm-workflow-icon {
-    margin-right: 0px;
-    margin-left: 15px;
-}
-
-html[dir="rtl"] .vis-wfm-workflow-item-left {
-    margin-right: 20px;
-    margin-left: 0px;
-}
-
-html[dir="rtl"] .vis-wfm-btnIconCls {
-    margin-right: 10px;
-    margin-left: 0px;
-}
-
-html[dir="rtl"] .vis-wfm-btnIconClsRight .vis-wfm-btnBack {
-    margin-right: 0px;
-    margin-left: 10px;
-}
-
-html[dir="rtl"] .vis-wfm-arrowEle {
-    margin-left: 60px;
-    margin-right: 0px;
-}
-
-html[dir="rtl"] .vis-wfm-timeline-marker {
-    margin-left: 0px;
-    margin-right: 35px;
-}
-
-html[dir="rtl"] .vis-wfm-timeline-line {
-    margin-left: 0px;
-    margin-right: 35px;
-}
-
-html[dir="rtl"] .VIS-pref-lblmsg {
-    margin-right: 22%;
-    margin-top: 25px;
-}
-
- /*rtl css End here*/
+    /*rtl css End here*/
