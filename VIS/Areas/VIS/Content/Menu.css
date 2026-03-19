@@ -2,20 +2,33 @@
 .ASI01-menu {
     width: 300px;
     background: #f5f5f5;
-    padding: 15px;
+    padding: 10px;
     border-radius: 8px;
-    font-family: Arial;
+    background: #d9e0ea;
+    height: calc(100vh - 60px);
+
+    /*height:100% !important;*/
+    overflow-y: auto;
+    overflow-x: hidden;
+    box-sizing: border-box;
 }
 
 .ASI01-folder {
     margin-bottom: 10px;
+    width: 100%;
 }
 
 .ASI01-folder-title {
     font-weight: bold;
     cursor: pointer;
-    padding: 6px;
+    /*padding: 6px;*/
+    padding: 0 8px;
+    margin-bottom: 4px;
 }
+.VIS-Yousif-AS-Menu {
+    width: 100%;
+}
+
 
 .ASI01-subfolder {
     margin-left: 15px;
@@ -39,19 +52,57 @@
     }
 
 
+.YOUSIF-nm-opt-link {
+    width: 100%;
+    min-height: 36px;
+    color: #35518b;
+    box-sizing: border-box;
+    padding: 8px 10px;
+    border-radius: 8px;
 
-.YOUSIF-nm-opt-link{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    padding:8px 12px;
-    text-decoration:none;
-    color:#333;
-    font-family:Arial;
-    font-size:14px;
-    border-radius:6px;
-    transition:all 0.2s ease;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    font-size: 16px;
+    transition: all 0.2s ease;
+    line-height: 24px;
 }
+
+
+    .YOUSIF-nm-opt-link .vis-open-file:first-child {
+        width: 22px;
+        height: 22px;
+        min-width: 22px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: #fff;
+        border-radius: 6px;
+        color: #1f3f8f;
+        font-size: 12px;
+        margin-right: 10px;
+        padding: 1rem;
+    }
+
+    .YOUSIF-nm-opt-link .vis-nm-mainMenuImg {
+        flex: 1;
+        font-size: 1rem;
+        font-weight: 600;
+        color: #35518b;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .YOUSIF-nm-opt-link .vis-arrow-down {
+        font-size: 12px;
+        color: #35518b;
+        margin-left: 8px;
+    }
+
+
 
 /* hover */
 .YOUSIF-nm-opt-link:hover{
@@ -71,10 +122,58 @@
     flex:1;
 }
 
+.VIS-Yousif-AS-Menu .vis-testing {
+    padding-left: 15%;
+    margin-top: 2px;
+}
+.VIS-Yousif-AS-Menu .vis-nm-subMenuCat {
+    list-style:none
+}
 
 
+.VIS-Yousif-AS-Menu .vis-linkTxt.vis-nm-subnav-content {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #4c68a1;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 6px 0;
+    cursor: pointer;
+}
+
+.Yousif-Pages-Paranet {
+    position: relative;
+    margin-left: 20px;
+    padding-left: 12px;
+    margin-top: 4px;
+    top: 0 !important;
+    left: 0 !important;
+}
+    .Yousif-Pages-Paranet::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 4px;
+        bottom: 4px;
+        width: 2px;
+        background: #8bc4ff;
+        border-radius: 2px;
+    }
+
+
+.Yousif-NodeItem span.fa {
+    display: none;
+}
+.Yousif-SubNav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+.Yousif-NodeItem vis-navTxt {
+    font-size: 1rem;
+}
 /*New Menu Start*/
-
 .VIS-nm-col-5 {
     grid-template-columns: repeat(5, 1fr);
     display: grid;
