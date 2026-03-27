@@ -1956,7 +1956,7 @@ namespace VIS.Models
             sql = sqlSelect + " FROM " + msqlFrom + " WHERE " + sql;
             sql = MRole.GetDefault(ctx).AddAccessSQL(sql, "patr", MRole.SQL_FULLYQUALIFIED, MRole.SQL_RO);
 
-            List <Dictionary<string, object>> retAttr = null;
+            List<Dictionary<string, object>> retAttr = null;
             SqlParameter[] param = new SqlParameter[1];
             param[0] = new SqlParameter("@M_Product_ID", product_ID);
             DataSet ds = DB.ExecuteDataset(sql, param, null);
@@ -2056,6 +2056,16 @@ namespace VIS.Models
                 + "WHERE p.M_Product_ID=" + Product_ID + " AND w.M_Warehouse_ID=" + Warehouse_ID;
             string title = Util.GetValueOfString(DB.ExecuteScalar(sql, null, null));
             return title;
+        }
+
+        public string GetOldScreen(string screenName)
+        {
+            if (MTable.Get_Table_ID("VAS_ZoomScreenConfig") > 0)
+            {
+                string sql = "SELECT Value FROM VAS_ZoomScreenConfig WHERE UPPER(Name)=" + DB.TO_STRING(screenName.ToUpper());
+                return Util.GetValueOfString(DB.ExecuteScalar(sql, null, null));
+            }
+            return "";
         }
     }
 }

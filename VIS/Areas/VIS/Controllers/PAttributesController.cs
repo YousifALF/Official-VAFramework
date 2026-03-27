@@ -147,5 +147,11 @@ namespace VIS.Controllers
             PAttributesModel model = new PAttributesModel();
             return Json(JsonConvert.SerializeObject(model.GetTitle(Warehouse_ID, Product_ID, ctx)), JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult GetOldScreen(string fields)
+        {
+            PAttributesModel model = new PAttributesModel();
+            return Json(JsonConvert.SerializeObject(model.GetOldScreen(fields)), JsonRequestBehavior.AllowGet);
+        }
     }
 }
