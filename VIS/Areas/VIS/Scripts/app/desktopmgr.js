@@ -116,6 +116,20 @@
                 }
             });
 
+            function closeAllSubMenus() {
+                $ASI01menu.find('.vis-testing:visible').stop(true, true).slideUp(200);
+            }
+
+            $ASI01menu.on('mouseenter', function () {
+                $(this).stop(true, true).animate({ width: '300px' }, 200);
+            });
+
+            // collapse on leave + close all submenus
+            $ASI01menu.on('mouseleave', function () {
+                $(this).stop(true, true).animate({ width: '70px' }, 200);
+                closeAllSubMenus();
+            });
+
 
 
             $(window).on("load", function () {

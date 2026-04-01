@@ -1,17 +1,65 @@
+.ASI01-menu {
+    position: relative;
+    width: 70px !important;
+    min-width: 70px;
+    overflow: visible !important;
+    border-radius: 0;
+}
+
+
+    .ASI01-menu .vis-testing {
+        position: relative;
+        z-index: 1000;
+    }
+
+
+    .ASI01-menu .VIS-Yousif-AS-Menu {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 70px;
+        min-width: 70px;
+        height: calc(100vh - 60px);
+        background: #d9e0ea;
+        border-radius: 0px;
+        box-sizing: border-box;
+        padding: 4px 10px 10px;
+        overflow-x: hidden;
+        overflow-y: hidden;
+        z-index: 99;
+        transition: width 0.3s ease, overflow 0.3s ease;
+    }
+
+    /* show scroll only on hover */
+    .ASI01-menu:hover .VIS-Yousif-AS-Menu {
+        width: 332px;
+        overflow-y: auto;
+    }
+
+/*#vis_mainSection {
+    position: relative;
+}
 
 .ASI01-menu {
-    width: 300px;
-    background: #f5f5f5;
-    padding: 10px;
-    border-radius: 8px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 99;
+    width: 70px;
+    height: 100%;
+    min-height: calc(100vh - 60px);
     background: #d9e0ea;
-    height: calc(100vh - 60px);
-
-    /*height:100% !important;*/
+    padding: 10px 0px;
+    box-sizing: border-box;
     overflow-y: auto;
     overflow-x: hidden;
-    box-sizing: border-box;
+    transition: width 0.3s ease;
+    box-shadow: 2px 2px 12px 0 rgba(0, 0, 0, .15);
 }
+
+    .ASI01-menu:hover {
+        width: 300px;
+    }*/
 
 .ASI01-folder {
     margin-bottom: 10px;
