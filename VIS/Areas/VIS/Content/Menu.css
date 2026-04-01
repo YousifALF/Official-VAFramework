@@ -28,7 +28,6 @@
         overflow-y: hidden;
         z-index: 99;
         transition: width 0.3s ease, overflow 0.3s ease;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     }
 
     /* show scroll only on hover */
