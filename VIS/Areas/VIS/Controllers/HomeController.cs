@@ -327,9 +327,13 @@ namespace VIS.Controllers
                     if (!disableMenu) // if menu is not disabled, only then load menu.
                     {
                         //get current user info
+                   
                         ViewBag.Menu = mnuHelper.GetMenuTree(); // create tree
                         Session["barNodes"] = ViewBag.Menu.GetBarNodes(); /* add is session to get it in favourite call */
                         ViewBag.IsMobile = Request.Browser.IsMobileDevice;
+
+                        Session["screenList"] = mnuHelper.GetScreenList(ViewBag.Menu.GetRootNode().Nodes);
+
                         if (Request.Browser.IsMobileDevice)
                         {
                             ViewBag.TreeHtml = mnuHelper.GetMobileMenuTreeUI(ViewBag.Menu.GetRootNode(), @Url.Content("~/"));

@@ -324,6 +324,102 @@ namespace VIS.Helpers
             return sb.ToString();
         }
 
+
+        //public List<string> GetScreenList(System.Windows.Forms.TreeNodeCollection treeNodeCollection)
+        //{
+        //    List<string> screens = new List<string>();
+
+        //    foreach (var item in treeNodeCollection)
+        //    {
+        //        VTreeNode vt = (VTreeNode)item;
+
+        //        //if (vt.Nodes.Count > 0)
+        //        //{
+        //        //    screens.AddRange(GetScreenList(vt.Nodes));
+        //        //}
+
+        //        //if (vt.AD_Task_ID == 1)
+        //        //{
+        //          screens.Add(vt.SetName);
+        //        //}
+        //    }
+
+        //    return screens;
+        //}
+
+        //public List<string> GetScreenList(System.Windows.Forms.TreeNodeCollection treeNodeCollection)
+        //{
+        //    List<string> screens = new List<string>();
+        //    Stack<VTreeNode> stack = new Stack<VTreeNode>();
+
+        //    foreach (var item in treeNodeCollection)
+        //        stack.Push((VTreeNode)item);
+
+        //    while (stack.Count > 0)
+        //    {
+        //        VTreeNode vt = stack.Pop();
+
+        //        if (vt.Nodes.Count == 0)
+        //        {
+        //            if (vt.GetDescription == "Y")
+        //                screens.Add(vt.SetName);
+        //        }
+        //        else
+        //        {
+        //            foreach (var child in vt.Nodes)
+        //                stack.Push((VTreeNode)child);
+        //        }
+        //    }
+
+        //    return screens;
+        //}
+
+
+
+        public List<ScreenItem> GetScreenList(System.Windows.Forms.TreeNodeCollection treeNodeCollection)
+        {
+            List<ScreenItem> screens = new List<ScreenItem>();
+
+            var matchedNodes = FlattenNodes(treeNodeCollection)
+                                  .Where(n => n.GetDescription != null &&
+                                         n.GetDescription.Trim().Equals("Y", StringComparison.OrdinalIgnoreCase));
+
+            foreach (VTreeNode vt in matchedNodes)
+            {
+                string action = vt.GetAction().Trim();
+                if (action == "") action = "W";
+                screens.Add(new ScreenItem
+                {
+                    NodeID = vt.Node_ID,
+                    Name = vt.SetName,
+                    Action = action,
+                    ActionID = vt.GetActionID(),
+                    SeqNo = vt.SeqNo,
+                    IsFav = vt.OnBar,
+                    IconClass = menuIcons.ContainsKey(action) ? menuIcons[action] : "fa fa-window-maximize",
+                    Image = vt.Image
+                });
+            }
+
+            return screens;
+        }
+
+        private IEnumerable<VTreeNode> FlattenNodes(System.Windows.Forms.TreeNodeCollection nodes)
+        {
+            foreach (var item in nodes)
+            {
+                VTreeNode vt = (VTreeNode)item;
+                yield return vt;
+                foreach (var child in FlattenNodes(vt.Nodes))
+                    yield return child;
+            }
+        }
+
+
+
+
+
+
         bool subMenuCat = false;
         /// <summary>
         /// Recursive method to add items in Menu
@@ -333,6 +429,7 @@ namespace VIS.Helpers
         /// <param name="windowNo"></param>
         private void CreateNewTree(System.Windows.Forms.TreeNodeCollection treeNodeCollection, string baseUrl, string windowNo = "")
         {
+
 
             foreach (var item in treeNodeCollection)
             {
@@ -1034,4 +1131,19 @@ namespace VIS.Helpers
             return isBase;
         }
     }
+
+
+    public class ScreenItem
+    {
+        public int NodeID { get; set; }
+        public string Name { get; set; }
+        public string Action { get; set; }
+        public int ActionID { get; set; }
+        public int SeqNo { get; set; }
+        public bool IsFav { get; set; }
+        public string IconClass { get; set; }
+        public string Image { get; set; }
+
+    }
+
 }

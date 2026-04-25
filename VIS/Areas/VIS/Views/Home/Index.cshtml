@@ -141,11 +141,14 @@
 
         <!-- App Header START -->
         <header class="vis-app-hdr">
+
+            <!-- App Main Menu START -->
+
             @Html.Partial("_UserSettings", Model)
             @Html.Partial("_Template")
         </header>
+   
 
-        <!-- App Main Menu START -->
 
         @if (ViewBag.IsMobile == true)
         {
@@ -311,6 +314,38 @@
                 </div>
             </div>
 
+
+            <!-- NEW SIDEBAR — place it here -->
+            @{
+                var screenList = Session["screenList"] as List<VIS.Helpers.ScreenItem>;
+            }
+
+            @if (screenList != null && screenList.Count > 0)
+            {
+                <!-- NEW SIDEBAR — place it here -->
+                <div class="vis-NewSideMenu-Container">
+                    <div class="vis-NewSideMenu-Header">
+                        <span class="vis-NewSideMenu-Title">Menu</span>
+                        <span class="vis-NewSideMenu-Close">&#8249;</span>
+                    </div>
+                    <div class="vis-NewSideMenu-List">
+                        @foreach (var screen in screenList)
+                        {
+                         <a class="vis-NewSideMenu-Item" title="@screen.Name" href="javascript:void(0)"
+                            data-seqno="@screen.SeqNo" data-value="@screen.NodeID"
+                            data-action="@screen.Action" data-actionid="@screen.ActionID">
+                             <span class="vis-NewSideMenu-Icon">
+                                 <i class="@(!string.IsNullOrEmpty(screen.Image) ? screen.Image : screen.IconClass)"></i>
+                             </span>
+                             <span class="vis-NewSideMenu-Text">@screen.Name</span>
+                         </a>
+                        }
+                    </div>
+                </div>
+            }
+
+
+
             <!-- App Main Conatiner -->
             <div id="vis_mainConatiner" class="vis-app-section-main">
                 <div id="vis_busyGrid" class="full-height-div busy" style="width:100%;text-align:center !important;align-content:center">
@@ -359,7 +394,7 @@
         </audio>
 
         <div class="vis-tray-container">
-            <div class="vis-tray-popup" id="visTrayPopup">               
+            <div class="vis-tray-popup" id="visTrayPopup">
             </div>
         </div>
 

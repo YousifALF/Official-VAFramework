@@ -653,3 +653,163 @@ nav.vis-nav-horizontal-scroll {
 }
 
 /*New menu 2 End*/
+/*Side Menu Start*/
+
+.vis-NewSideMenu-Container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 220px;
+    height: 100vh;
+    background: #ffffff;
+    box-shadow: 4px 0 12px rgba(0, 0, 0, 0.12);
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    font-family: inherit;
+}
+
+.vis-NewSideMenu-Header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 16px 14px 16px;
+    border-bottom: 1px solid #e8edf2;
+}
+
+.vis-NewSideMenu-Title {
+    font-weight: 700;
+    font-size: 15px;
+    color: #1a1a2e;
+}
+
+.vis-NewSideMenu-Close {
+    font-size: 22px;
+    color: #3b82f6;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.vis-NewSideMenu-List {
+    display: flex;
+    flex-direction: column;
+    padding: 8px 0;
+    overflow-y: auto;
+}
+
+.vis-NewSideMenu-Item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 16px;
+    text-decoration: none;
+    color: #2d3748;
+    font-size: 14px;
+    transition: background 0.15s ease;
+}
+
+    .vis-NewSideMenu-Item:hover {
+        background: #f0f5ff;
+        color: #3b82f6;
+        text-decoration: none;
+    }
+
+        .vis-NewSideMenu-Item:hover .vis-NewSideMenu-Icon i {
+            color: #3b82f6;
+        }
+
+.vis-NewSideMenu-Icon {
+    width: 22px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+    .vis-NewSideMenu-Icon i {
+        font-size: 16px;
+        color: #3b82f6;
+    }
+
+.vis-NewSideMenu-Text {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+.vis-NewSideMenu-Container {
+    transition: width 0.3s ease;
+    overflow: hidden;
+}
+
+    .vis-NewSideMenu-Container.vis-NewSideMenu-Collapsed {
+        width: 54px;
+    }
+
+        /* Hide text and title when collapsed */
+        .vis-NewSideMenu-Container.vis-NewSideMenu-Collapsed .vis-NewSideMenu-Text,
+        .vis-NewSideMenu-Container.vis-NewSideMenu-Collapsed .vis-NewSideMenu-Title {
+            opacity: 0;
+            width: 0;
+            overflow: hidden;
+            transition: opacity 0.2s ease, width 0.3s ease;
+        }
+
+        /* Keep icon centered when collapsed */
+        .vis-NewSideMenu-Container.vis-NewSideMenu-Collapsed .vis-NewSideMenu-Item {
+            justify-content: center;
+            padding: 11px 0;
+        }
+
+        .vis-NewSideMenu-Container.vis-NewSideMenu-Collapsed .vis-NewSideMenu-Header {
+            justify-content: center;
+        }
+
+/* Smooth text when open */
+.vis-NewSideMenu-Text,
+.vis-NewSideMenu-Title {
+    opacity: 1;
+    transition: opacity 0.25s ease 0.1s;
+}
+
+/* Arrow icon smooth flip */
+.vis-NewSideMenu-Close {
+    transition: transform 0.3s ease;
+}
+
+#vis_mainSection {
+    position: relative; /* anchor for the absolute sidebar */
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+}
+
+
+
+/* mainConatiner stays full width — sidebar overlaps it */
+#vis_mainConatiner {
+    flex: 1;
+    overflow: auto;
+}
+
+/* OPEN — overlaps content */
+.vis-NewSideMenu-Container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 220px;
+    height: 100%;
+    background: #ffffff;
+    box-shadow: 4px 0 12px rgba(0, 0, 0, 0.12);
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    transition: width 0.3s ease;
+    overflow: hidden;
+}
+
+    /* COLLAPSED — takes its own space, pushes content */
+    .vis-NewSideMenu-Container.vis-NewSideMenu-Collapsed {
+        position: relative;
+        width: 54px;
+    }

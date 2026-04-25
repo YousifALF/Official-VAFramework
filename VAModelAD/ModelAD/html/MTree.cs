@@ -782,7 +782,7 @@ namespace VAdvantage.Model
 
                         + " NVL(img.FontName,img.ImageURL) as Image, AD_Menu.IsSetting, img.FontStyle FROM AD_Menu AD_Menu");
                 else
-                    sqlNode.Append("SELECT AD_Menu.AD_Menu_ID,  t.Name,t.Description,AD_Menu.IsSummary,AD_Menu.Action, "
+                    sqlNode.Append("SELECT AD_Menu.AD_Menu_ID,  t.Name,AD_Menu.Description,AD_Menu.IsSummary,AD_Menu.Action, "
                         + "AD_Menu.AD_Window_ID, AD_Menu.AD_Process_ID, AD_Menu.AD_Form_ID, AD_Menu.AD_Workflow_ID, AD_Menu.AD_Task_ID, AD_Menu.AD_Workbench_ID, "
                         + " NVL(img.FontName,img.ImageURL) as Image, AD_Menu.IsSetting, img.FontStyle FROM AD_Menu AD_Menu JOIN  AD_Menu_Trl t ON AD_Menu.AD_Menu_ID=t.AD_Menu_ID ");
 
@@ -1335,7 +1335,6 @@ namespace VAdvantage.Model
                         MRole role = MRole.GetDefault(GetCtx(), false);
                         bool? blnAccess = false;
 
-
                         if (X_AD_Menu.ACTION_Window.Equals(actionColor))
                             blnAccess = role.GetWindowAccess(AD_Window_ID);
                         else if (X_AD_Menu.ACTION_Process.Equals(actionColor)
@@ -1353,6 +1352,11 @@ namespace VAdvantage.Model
                             retValue = new VTreeNode(Node_ID, seqNo,
                                 name, description, Parent_ID, isSummary,
                                 actionColor, onBar);	//	menu has no color
+                        }
+
+                        if (retValue != null)
+                        {
+                            retValue.Image = dr["Image"] == DBNull.Value ? string.Empty : Utility.Util.GetValueOfString(dr["Image"]);
                         }
 
                         if (isSummary)
@@ -1379,6 +1383,8 @@ namespace VAdvantage.Model
                                     name, description, Parent_ID, isSummary,
                                     actionColor, onBar);
 
+
+
                         if (GetTreeType().Equals(TREETYPE_Menu) && isSummary)
                         {
                             retValue.Image = Utility.Util.GetValueOfString(dr["Image"]);
@@ -1390,11 +1396,14 @@ namespace VAdvantage.Model
                     }
                     break;
                 }
+
             }
             catch (Exception e)
             {
                 log.Log(Level.SEVERE, "", e);
             }
+
+
             if (retValue != null)
             {
                 // set VTreeNode ID's

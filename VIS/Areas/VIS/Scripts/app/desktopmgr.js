@@ -636,6 +636,7 @@
             hideMenu();
         };
 
+
         /*
          *  change background color of active Task bar item
          *
@@ -1952,7 +1953,35 @@
         }
     });
 
+    $(document).on("click", ".vis-NewSideMenu-Item", function (e) {
+        if ($(e.target).is('i')) {
+            VIS.FavouriteHelper.addDelFav($(e.target));
+            return;
+        }
+        var $el = $(e.target).closest('.vis-NewSideMenu-Item');
+        VIS.viewManager.startAction($el.data('action'), $el.data('actionid')); // same as startSideMenuAction
+    });
 
+
+    // Add this inside desktopmgr.js, inside desktopMgr function
+
+    $('.vis-NewSideMenu-Close').on('click', function () {
+        var $container = $('.vis-NewSideMenu-Container');
+        var isCollapsed = $container.hasClass('vis-NewSideMenu-Collapsed');
+
+        if (isCollapsed) {
+            $container.css('position', 'absolute');
+            $container.removeClass('vis-NewSideMenu-Collapsed');
+            $(this).html('&#8249;');
+        } else {
+            $container.addClass('vis-NewSideMenu-Collapsed');
+            // wait for width transition to finish before switching position
+            setTimeout(function () {
+                $container.css('position', 'relative');
+            }, 300);
+            $(this).html('&#8250;');
+        }
+    });
 
 
 })(VIS);
