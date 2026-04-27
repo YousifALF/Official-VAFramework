@@ -1969,23 +1969,23 @@
     // Add this inside desktopmgr.js, inside desktopMgr function
 
 
-    $('.vis-NewSideMenu-Close').on('click', function () {
-        var $container = $('.vis-NewSideMenu-Container');
-        var isCollapsed = $container.hasClass('vis-NewSideMenu-Collapsed');
+    //$('.vis-NewSideMenu-Close').on('click', function () {
+    //    var $container = $('.vis-NewSideMenu-Container');
+    //    var isCollapsed = $container.hasClass('vis-NewSideMenu-Collapsed');
 
-        if (isCollapsed) {
-            $container.css('position', 'absolute');
-            $container.removeClass('vis-NewSideMenu-Collapsed');
-            $(this).html('&#8249;');
-        } else {
-            $container.addClass('vis-NewSideMenu-Collapsed');
-            // wait for width transition to finish before switching position
-            setTimeout(function () {
-                $container.css('position', 'relative');
-            }, 300);
-            $(this).html('&#8250;');
-        }
-    });
+    //    if (isCollapsed) {
+    //        $container.css('position', 'absolute');
+    //        $container.removeClass('vis-NewSideMenu-Collapsed');
+    //        $(this).html('&#8249;');
+    //    } else {
+    //        $container.addClass('vis-NewSideMenu-Collapsed');
+    //        // wait for width transition to finish before switching position
+    //        setTimeout(function () {
+    //            $container.css('position', 'relative');
+    //        }, 300);
+    //        $(this).html('&#8250;');
+    //    }
+    //});
 
 
 })(VIS);
