@@ -659,9 +659,6 @@ nav.vis-nav-horizontal-scroll {
    Main section anchor
 ================================ */
 
-
-
-
 /* ================================
    Main section anchor
 ================================ */
@@ -703,41 +700,32 @@ nav.vis-nav-horizontal-scroll {
 
 
     /* ================================
-   Open State
-   Hover open / button open / JS hover open
-================================ */
-    .vis-NewSideMenu-Container:hover,
-    .vis-NewSideMenu-Container.vis-NewSideMenu-Expanded,
-    .vis-NewSideMenu-Container.vis-NewSideMenu-HoverOpen {
-        width: 342px;
-        min-width: 342px;
-        overflow-y: auto;
-        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.16), 0 4px 10px rgba(0, 0, 0, 0.08);
-        position: absolute !important;
-    }
-
-
-    /* ================================
    Collapsed State
+   Default close state
 ================================ */
     .vis-NewSideMenu-Container.vis-NewSideMenu-Collapsed {
+        position: relative;
         width: 54px;
         min-width: 54px;
         overflow-x: hidden;
         overflow-y: hidden;
         box-shadow: none;
-        position: relative;
     }
 
-        /* Collapsed + hover / hover class / expanded */
-        .vis-NewSideMenu-Container.vis-NewSideMenu-Collapsed:hover,
-        .vis-NewSideMenu-Container.vis-NewSideMenu-Collapsed.vis-NewSideMenu-HoverOpen,
-        .vis-NewSideMenu-Container.vis-NewSideMenu-Collapsed.vis-NewSideMenu-Expanded {
+
+        /* ================================
+   Open State by Button / JS
+   Works on Desktop + Mobile
+================================ */
+        .vis-NewSideMenu-Container.vis-NewSideMenu-Expanded,
+        .vis-NewSideMenu-Container.vis-NewSideMenu-HoverOpen,
+        .vis-NewSideMenu-Container.vis-NewSideMenu-Collapsed.vis-NewSideMenu-Expanded,
+        .vis-NewSideMenu-Container.vis-NewSideMenu-Collapsed.vis-NewSideMenu-HoverOpen {
+            position: absolute !important;
             width: 342px;
             min-width: 342px;
             overflow-y: auto;
             box-shadow: 0 10px 28px rgba(0, 0, 0, 0.16), 0 4px 10px rgba(0, 0, 0, 0.08);
-            position: absolute !important;
         }
 
 
@@ -759,7 +747,6 @@ nav.vis-nav-horizontal-scroll {
 .vis-NewSideMenu-Title {
     font-size: 18px;
     font-weight: 700;
-    /*    color: #1a1a2e;*/
     color: rgba(var(--v-c-on-secondary), 1);
     white-space: nowrap;
     overflow: hidden;
@@ -769,25 +756,27 @@ nav.vis-nav-horizontal-scroll {
     transition: opacity 0.25s ease 0.08s, max-width 0.3s ease, visibility 0.2s ease;
 }
 
-/* Show title when open */
-.vis-NewSideMenu-Container:hover .vis-NewSideMenu-Title,
+/* Header centered when collapsed */
+.vis-NewSideMenu-Container.vis-NewSideMenu-Collapsed .vis-NewSideMenu-Header {
+    justify-content: center !important;
+}
+
+/* Header normal when opened by button / JS */
+.vis-NewSideMenu-Container.vis-NewSideMenu-Expanded .vis-NewSideMenu-Header,
+.vis-NewSideMenu-Container.vis-NewSideMenu-HoverOpen .vis-NewSideMenu-Header,
+.vis-NewSideMenu-Container.vis-NewSideMenu-Collapsed.vis-NewSideMenu-Expanded .vis-NewSideMenu-Header,
+.vis-NewSideMenu-Container.vis-NewSideMenu-Collapsed.vis-NewSideMenu-HoverOpen .vis-NewSideMenu-Header {
+    justify-content: space-between !important;
+}
+
+/* Show title when opened by button / JS */
 .vis-NewSideMenu-Container.vis-NewSideMenu-Expanded .vis-NewSideMenu-Title,
-.vis-NewSideMenu-Container.vis-NewSideMenu-HoverOpen .vis-NewSideMenu-Title {
+.vis-NewSideMenu-Container.vis-NewSideMenu-HoverOpen .vis-NewSideMenu-Title,
+.vis-NewSideMenu-Container.vis-NewSideMenu-Collapsed.vis-NewSideMenu-Expanded .vis-NewSideMenu-Title,
+.vis-NewSideMenu-Container.vis-NewSideMenu-Collapsed.vis-NewSideMenu-HoverOpen .vis-NewSideMenu-Title {
     opacity: 1;
     visibility: visible;
     max-width: 220px;
-}
-
-/* Header centered when collapsed */
-.vis-NewSideMenu-Container.vis-NewSideMenu-Collapsed .vis-NewSideMenu-Header {
-    justify-content: center;
-}
-
-/* Header normal when opened */
-.vis-NewSideMenu-Container.vis-NewSideMenu-Collapsed:hover .vis-NewSideMenu-Header,
-.vis-NewSideMenu-Container.vis-NewSideMenu-Collapsed.vis-NewSideMenu-Expanded .vis-NewSideMenu-Header,
-.vis-NewSideMenu-Container.vis-NewSideMenu-Collapsed.vis-NewSideMenu-HoverOpen .vis-NewSideMenu-Header {
-    justify-content: space-between;
 }
 
 
@@ -795,20 +784,21 @@ nav.vis-nav-horizontal-scroll {
    Close / Collapse Button
 ================================ */
 .vis-NewSideMenu-Close {
-    background: #fff;
-    border-radius: 8px;
-    color: rgba(var(--v-c-on-secondary));
-    cursor: pointer;
-    display: inline-flex;
-    font-size: 28px;
+    width: 32px;
     height: 32px;
+    min-width: 32px;
+    display: inline-flex;
+    align-items: center;
     justify-content: center;
     align-content: center;
+    background: #ffffff;
+    border-radius: 8px;
+    color: rgba(var(--v-c-on-secondary), 1);
+    font-size: 28px;
     line-height: 1;
-    min-width: 32px;
-    transition: transform .3s ease, background .2s ease, color .2s ease;
-    width: 32px;
-    padding: 0px;
+    cursor: pointer;
+    padding: 0;
+    transition: transform 0.3s ease, background 0.2s ease, color 0.2s ease;
 }
 
     .vis-NewSideMenu-Close:hover {
@@ -817,16 +807,17 @@ nav.vis-nav-horizontal-scroll {
     }
 
 /* Arrow flip when collapsed */
-.vis-NewSideMenu-Container.vis-NewSideMenu-Collapsed .vis-NewSideMenu-Close {
+/*.vis-NewSideMenu-Container.vis-NewSideMenu-Collapsed .vis-NewSideMenu-Close {
     transform: rotate(180deg);
-}
+}*/
 
-/* Arrow restore when opened by hover or button */
-.vis-NewSideMenu-Container.vis-NewSideMenu-Collapsed:hover .vis-NewSideMenu-Close,
+/* Arrow restore when opened by button / JS */
+/*.vis-NewSideMenu-Container.vis-NewSideMenu-Expanded .vis-NewSideMenu-Close,
+.vis-NewSideMenu-Container.vis-NewSideMenu-HoverOpen .vis-NewSideMenu-Close,
 .vis-NewSideMenu-Container.vis-NewSideMenu-Collapsed.vis-NewSideMenu-Expanded .vis-NewSideMenu-Close,
 .vis-NewSideMenu-Container.vis-NewSideMenu-Collapsed.vis-NewSideMenu-HoverOpen .vis-NewSideMenu-Close {
     transform: rotate(0deg);
-}
+}*/
 
 
 /* ================================
@@ -872,8 +863,9 @@ nav.vis-nav-horizontal-scroll {
     padding: 8px 0;
 }
 
-/* Restore item layout when opened */
-.vis-NewSideMenu-Container.vis-NewSideMenu-Collapsed:hover .vis-NewSideMenu-Item,
+/* Restore item layout when opened by button / JS */
+.vis-NewSideMenu-Container.vis-NewSideMenu-Expanded .vis-NewSideMenu-Item,
+.vis-NewSideMenu-Container.vis-NewSideMenu-HoverOpen .vis-NewSideMenu-Item,
 .vis-NewSideMenu-Container.vis-NewSideMenu-Collapsed.vis-NewSideMenu-Expanded .vis-NewSideMenu-Item,
 .vis-NewSideMenu-Container.vis-NewSideMenu-Collapsed.vis-NewSideMenu-HoverOpen .vis-NewSideMenu-Item {
     justify-content: flex-start;
@@ -933,31 +925,15 @@ nav.vis-nav-horizontal-scroll {
     color: #3b82f6;
 }
 
-
-.vis-NewSideMenu-Container:hover .vis-NewSideMenu-Text,
+/* Show text when opened by button / JS */
 .vis-NewSideMenu-Container.vis-NewSideMenu-Expanded .vis-NewSideMenu-Text,
-.vis-NewSideMenu-Container.vis-NewSideMenu-HoverOpen .vis-NewSideMenu-Text {
-    opacity: 1;
-    visibility: visible;
-    max-width: 240px;
-    display: block;
-}
-
-/* Keep text hidden in collapsed base state */
-.vis-NewSideMenu-Container.vis-NewSideMenu-Collapsed .vis-NewSideMenu-Text {
-    opacity: 0;
-    visibility: hidden;
-    max-width: 0;
-}
-
-/* Show text when collapsed is opened */
-.vis-NewSideMenu-Container.vis-NewSideMenu-Collapsed:hover .vis-NewSideMenu-Text,
+.vis-NewSideMenu-Container.vis-NewSideMenu-HoverOpen .vis-NewSideMenu-Text,
 .vis-NewSideMenu-Container.vis-NewSideMenu-Collapsed.vis-NewSideMenu-Expanded .vis-NewSideMenu-Text,
 .vis-NewSideMenu-Container.vis-NewSideMenu-Collapsed.vis-NewSideMenu-HoverOpen .vis-NewSideMenu-Text {
     opacity: 1;
     visibility: visible;
     max-width: 240px;
-
+    display: block;
 }
 
 
@@ -977,6 +953,82 @@ nav.vis-nav-horizontal-scroll {
     .vis-NewSideMenu-Item.active .vis-NewSideMenu-Icon {
         color: #1f3f8f;
     }
+
+
+/* ================================
+   Desktop Hover Only
+================================ */
+@media (hover: hover) and (pointer: fine) {
+    .vis-NewSideMenu-Container:hover,
+    .vis-NewSideMenu-Container.vis-NewSideMenu-Collapsed:hover {
+        position: absolute !important;
+        width: 342px;
+        min-width: 342px;
+        overflow-y: auto;
+        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.16), 0 4px 10px rgba(0, 0, 0, 0.08);
+    }
+
+        .vis-NewSideMenu-Container:hover .vis-NewSideMenu-Title,
+        .vis-NewSideMenu-Container.vis-NewSideMenu-Collapsed:hover .vis-NewSideMenu-Title {
+            opacity: 1;
+            visibility: visible;
+            max-width: 220px;
+        }
+
+        .vis-NewSideMenu-Container:hover .vis-NewSideMenu-Header,
+        .vis-NewSideMenu-Container.vis-NewSideMenu-Collapsed:hover .vis-NewSideMenu-Header {
+            justify-content: space-between !important;
+        }
+
+        .vis-NewSideMenu-Container:hover .vis-NewSideMenu-Close,
+        .vis-NewSideMenu-Container.vis-NewSideMenu-Collapsed:hover .vis-NewSideMenu-Close {
+            transform: rotate(0deg);
+        }
+
+        .vis-NewSideMenu-Container:hover .vis-NewSideMenu-Item,
+        .vis-NewSideMenu-Container.vis-NewSideMenu-Collapsed:hover .vis-NewSideMenu-Item {
+            justify-content: flex-start;
+            padding: 8px 10px;
+        }
+
+        .vis-NewSideMenu-Container:hover .vis-NewSideMenu-Text,
+        .vis-NewSideMenu-Container.vis-NewSideMenu-Collapsed:hover .vis-NewSideMenu-Text {
+            opacity: 1;
+            visibility: visible;
+            max-width: 240px;
+            display: block;
+        }
+}
+
+
+/* ================================
+   Mobile , Touch Devices
+================================ */
+@media (hover: none), (pointer: coarse) {
+    .vis-NewSideMenu-Container:hover {
+        box-shadow: none;
+    }
+
+    .vis-NewSideMenu-Container.vis-NewSideMenu-Expanded,
+    .vis-NewSideMenu-Container.vis-NewSideMenu-Collapsed.vis-NewSideMenu-Expanded {
+        position: absolute !important;
+        width: 85vw;
+        min-width: 85vw;
+        max-width: 342px;
+        overflow-y: auto;
+        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.16), 0 4px 10px rgba(0, 0, 0, 0.08);
+    }
+
+    .vis-NewSideMenu-Container.vis-NewSideMenu-Collapsed {
+        position: relative;
+        width: 54px;
+        min-width: 54px;
+    }
+
+    .vis-NewSideMenu-Close {
+        touch-action: manipulation;
+    }
+}
 
 
 /* ================================
