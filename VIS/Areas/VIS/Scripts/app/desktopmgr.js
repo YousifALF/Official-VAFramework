@@ -1953,6 +1953,9 @@
         }
     });
 
+
+    
+
     $(document).on("click", ".vis-NewSideMenu-Item", function (e) {
         if ($(e.target).is('i')) {
             VIS.FavouriteHelper.addDelFav($(e.target));
@@ -1964,6 +1967,7 @@
 
 
     // Add this inside desktopmgr.js, inside desktopMgr function
+
 
     $('.vis-NewSideMenu-Close').on('click', function () {
         var $container = $('.vis-NewSideMenu-Container');
