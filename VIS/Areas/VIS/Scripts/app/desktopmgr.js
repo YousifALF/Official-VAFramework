@@ -1966,6 +1966,20 @@
     });
 
 
+    function isRtlMode() {
+        return ($("html").attr("dir") || "").toLowerCase() === "rtl";
+    }
+
+    function setSideMenuArrow($btn, isOpen) {
+        var isRtl = isRtlMode();
+
+        if (isOpen) {
+            $btn.html(isRtl ? "&#8250;" : "&#8249;");
+        } else {
+            $btn.html(isRtl ? "&#8249;" : "&#8250;");
+        }
+    }
+
     $(document).on("click", ".vis-NewSideMenu-Close", function (e) {
         e.preventDefault();
         e.stopPropagation();
@@ -1976,20 +1990,18 @@
 
         if (isOpen) {
             $container
-                .removeClass("vis-NewSideMenu-Expanded")
-                .removeClass("vis-NewSideMenu-HoverOpen")
+                .removeClass("vis-NewSideMenu-Expanded vis-NewSideMenu-HoverOpen")
                 .addClass("vis-NewSideMenu-Collapsed")
                 .css("position", "relative");
 
-            $btn.html("&#8250;"); // › closed
+            setSideMenuArrow($btn, false);
         } else {
             $container
-                .removeClass("vis-NewSideMenu-Collapsed")
-                .removeClass("vis-NewSideMenu-HoverOpen")
+                .removeClass("vis-NewSideMenu-Collapsed vis-NewSideMenu-HoverOpen")
                 .addClass("vis-NewSideMenu-Expanded")
                 .css("position", "absolute");
 
-            $btn.html("&#8249;"); // ‹ opened
+            setSideMenuArrow($btn, true);
         }
     });
 
@@ -2002,11 +2014,10 @@
                 .removeClass("vis-NewSideMenu-HoverOpen")
                 .css("position", "relative");
 
-            $btn.html("&#8250;"); // › back to closed
+            setSideMenuArrow($btn, false);
         }
     });
 
-    /* Desktop hover only */
     $(document).on("mouseenter", ".vis-NewSideMenu-Container", function () {
         var $container = $(this);
         var $btn = $container.find(".vis-NewSideMenu-Close");
@@ -2016,9 +2027,67 @@
                 .addClass("vis-NewSideMenu-HoverOpen")
                 .css("position", "absolute");
 
-            $btn.html("&#8249;"); // ‹ while hover open
+            setSideMenuArrow($btn, true);
         }
     });
+
+
+
+
+
+    //$(document).on("click", ".vis-NewSideMenu-Close", function (e) {
+    //    e.preventDefault();
+    //    e.stopPropagation();
+
+    //    var $btn = $(this);
+    //    var $container = $btn.closest(".vis-NewSideMenu-Container");
+    //    var isOpen = $container.hasClass("vis-NewSideMenu-Expanded");
+
+    //    if (isOpen) {
+    //        $container
+    //            .removeClass("vis-NewSideMenu-Expanded")
+    //            .removeClass("vis-NewSideMenu-HoverOpen")
+    //            .addClass("vis-NewSideMenu-Collapsed")
+    //            .css("position", "relative");
+
+    //        $btn.html("&#8250;"); // › closed
+    //    } else {
+    //        $container
+    //            .removeClass("vis-NewSideMenu-Collapsed")
+    //            .removeClass("vis-NewSideMenu-HoverOpen")
+    //            .addClass("vis-NewSideMenu-Expanded")
+    //            .css("position", "absolute");
+
+    //        $btn.html("&#8249;"); // ‹ opened
+    //    }
+    //});
+
+    //$(document).on("mouseleave", ".vis-NewSideMenu-Container", function () {
+    //    var $container = $(this);
+    //    var $btn = $container.find(".vis-NewSideMenu-Close");
+
+    //    if ($container.hasClass("vis-NewSideMenu-Collapsed")) {
+    //        $container
+    //            .removeClass("vis-NewSideMenu-HoverOpen")
+    //            .css("position", "relative");
+
+    //        $btn.html("&#8250;"); // › back to closed
+    //    }
+    //});
+
+    ///* Desktop hover only */
+    //$(document).on("mouseenter", ".vis-NewSideMenu-Container", function () {
+    //    var $container = $(this);
+    //    var $btn = $container.find(".vis-NewSideMenu-Close");
+
+    //    if ($container.hasClass("vis-NewSideMenu-Collapsed")) {
+    //        $container
+    //            .addClass("vis-NewSideMenu-HoverOpen")
+    //            .css("position", "absolute");
+
+    //        $btn.html("&#8249;"); // ‹ while hover open
+    //    }
+    //});
 
 
     //$('.vis-NewSideMenu-Close').on('click', function () {

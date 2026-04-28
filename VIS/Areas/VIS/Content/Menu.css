@@ -1,4 +1,4 @@
-﻿/*New Menu Start*/
+/*New Menu Start*/
 
 .VIS-nm-col-5 {
     grid-template-columns: repeat(5, 1fr);
@@ -685,7 +685,7 @@ nav.vis-nav-horizontal-scroll {
     left: 0;
     width: 70px;
     min-width: 70px;
-    height: calc(100vh - 60px);
+    height: 100%;
     background-color: rgb(244 244 244);
     box-sizing: border-box;
     padding: 4px 10px 10px;
@@ -1050,6 +1050,26 @@ nav.vis-nav-horizontal-scroll {
     .vis-NewSideMenu-Container::-webkit-scrollbar-thumb:hover {
         background: #7f96bd;
     }
+
+/* ================================
+   RTL Support
+================================ */
+html[dir="rtl"] .vis-NewSideMenu-Container,
+html[dir="rtl"] .vis-NewSideMenu-Container:hover,
+html[dir="rtl"] .vis-NewSideMenu-Container.vis-NewSideMenu-HoverOpen,
+html[dir="rtl"] .vis-NewSideMenu-Container.vis-NewSideMenu-Expanded {
+    left: auto !important;
+    right: 0 !important;
+}
+
+html[dir="rtl"] .vis-NewSideMenu-Item.active {
+    box-shadow: inset -3px 0 0 #1f3f8f;
+}
+
+html[dir="rtl"] .vis-NewSideMenu-Close {
+    transform: scaleX(-1) !important;
+}
+
 
 
 
