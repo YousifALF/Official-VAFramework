@@ -326,8 +326,14 @@
                 <div class="vis-NewSideMenu-Container vis-NewSideMenu-Collapsed">
                     <div class="vis-NewSideMenu-Header">
                         <span class="vis-NewSideMenu-Title">Menu</span>
-                        <span class="vis-NewSideMenu-Close">@(ViewBag.direction != null && ViewBag.direction.ToString().ToLower() == "rtl" ? Html.Raw("&#8249;") : Html.Raw("&#8250;"))</span>
-
+                        @if (ViewBag.direction == "rtl")
+                        {
+                            <span class="vis-NewSideMenu-Close">&#8249;</span>
+                        }
+                        else
+                        {
+                            <span class="vis-NewSideMenu-Close">&#8250;</span>
+                        }
                     </div>
                     <div class="vis-NewSideMenu-List">
                         @foreach (var screen in screenList)
