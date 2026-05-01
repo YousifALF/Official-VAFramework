@@ -51,7 +51,7 @@
     </Reference>
     <Reference Include="BaseLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\ViennaAdvantageWeb\Dll\BaseLibrary.dll</HintPath>
+      <HintPath>..\..\..\VABaseFiles\VABaseFiles\BaseLibrary\bin\Debug\BaseLibrary.dll</HintPath>
     </Reference>
     <Reference Include="CoreLibrary">
       <HintPath>..\ViennaAdvantageWeb\Dll\CoreLibrary.dll</HintPath>

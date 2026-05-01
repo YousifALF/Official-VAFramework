@@ -776,15 +776,15 @@ namespace VAdvantage.Model
             {
                 bool baseLang = Utility.Env.IsBaseLanguage(GetCtx(), "");// DataBase.GlobalVariable.IsBaseLanguage();
                 sourceTable = "AD_Menu";
-                if (baseLang)
-                    sqlNode.Append("SELECT AD_Menu.AD_Menu_ID, AD_Menu.Name,AD_Menu.Description,AD_Menu.IsSummary,AD_Menu.Action, "
-                        + "AD_Menu.AD_Window_ID, AD_Menu.AD_Process_ID, AD_Menu.AD_Form_ID, AD_Menu.AD_Workflow_ID, AD_Menu.AD_Task_ID, AD_Menu.AD_Workbench_ID, "
+if (baseLang)
+    sqlNode.Append("SELECT AD_Menu.AD_Menu_ID, AD_Menu.Name,AD_Menu.Description,AD_Menu.IsSummary,AD_Menu.Action, "
+        + "AD_Menu.AD_Window_ID, AD_Menu.AD_Process_ID, AD_Menu.AD_Form_ID, AD_Menu.AD_Workflow_ID, AD_Menu.AD_Task_ID, AD_Menu.AD_Workbench_ID, "
 
-                        + " NVL(img.FontName,img.ImageURL) as Image, AD_Menu.IsSetting, img.FontStyle FROM AD_Menu AD_Menu");
-                else
-                    sqlNode.Append("SELECT AD_Menu.AD_Menu_ID,  t.Name,AD_Menu.Description,AD_Menu.IsSummary,AD_Menu.Action, "
-                        + "AD_Menu.AD_Window_ID, AD_Menu.AD_Process_ID, AD_Menu.AD_Form_ID, AD_Menu.AD_Workflow_ID, AD_Menu.AD_Task_ID, AD_Menu.AD_Workbench_ID, "
-                        + " NVL(img.FontName,img.ImageURL) as Image, AD_Menu.IsSetting, img.FontStyle FROM AD_Menu AD_Menu JOIN  AD_Menu_Trl t ON AD_Menu.AD_Menu_ID=t.AD_Menu_ID ");
+        + " NVL(img.FontName,img.ImageURL) as Image, AD_Menu.IsSetting, img.FontStyle, AD_Menu.SeqInSideMenu, AD_Menu.ShowInSideMenu FROM AD_Menu AD_Menu");
+else
+    sqlNode.Append("SELECT AD_Menu.AD_Menu_ID,  t.Name,AD_Menu.Description,AD_Menu.IsSummary,AD_Menu.Action, "
+        + "AD_Menu.AD_Window_ID, AD_Menu.AD_Process_ID, AD_Menu.AD_Form_ID, AD_Menu.AD_Workflow_ID, AD_Menu.AD_Task_ID, AD_Menu.AD_Workbench_ID, "
+        + " NVL(img.FontName,img.ImageURL) as Image, AD_Menu.IsSetting, img.FontStyle, AD_Menu.SeqInSideMenu, AD_Menu.ShowInSideMenu FROM AD_Menu AD_Menu JOIN  AD_Menu_Trl t ON AD_Menu.AD_Menu_ID=t.AD_Menu_ID ");
 
                 if (!baseLang)
                 {
@@ -1357,6 +1357,8 @@ namespace VAdvantage.Model
                         if (retValue != null)
                         {
                             retValue.Image = dr["Image"] == DBNull.Value ? string.Empty : Utility.Util.GetValueOfString(dr["Image"]);
+                            retValue.ShowInSideMenu = dr["ShowInSideMenu"] == DBNull.Value ? string.Empty : Utility.Util.GetValueOfString(dr["ShowInSideMenu"]);
+                            retValue.SeqInSideMenu = dr["SeqInSideMenu"] == DBNull.Value ? 0 : Utility.Util.GetValueOfInt(dr["SeqInSideMenu"]);
                         }
 
                         if (isSummary)

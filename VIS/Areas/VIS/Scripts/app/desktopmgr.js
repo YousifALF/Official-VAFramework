@@ -109,6 +109,8 @@
                     if (!$target.hasClass("VIS-nm-opt-link"))
                         return;
                 }
+
+
                 $appMenuDiv.css("display", "flex");
                 $appMenuDiv.find(".vis-nm-selAppLabel").text($target.find('span').text()).attr('title', $target.find('span').text());
                 if ($target.find("img").length > 0) {
@@ -1955,6 +1957,18 @@
 
 
     
+
+    $('#vis_divTree').on('click', function (e) {
+        var $target = $(e.target);
+        if (!$target.hasClass("VIS-nm-opt-link")) {
+            $target = $target.closest(".VIS-nm-opt-link");
+        }
+        if (!$target || $target.length === 0) return;
+
+        var folderId = $target.attr("data-value");
+        $('.vis-NewSideMenu-Item[data-folder]').hide();
+        $('.vis-NewSideMenu-Item[data-folder="' + folderId + '"]').show();
+    });
 
     $(document).on("click", ".vis-NewSideMenu-Item", function (e) {
         if ($(e.target).is('i')) {

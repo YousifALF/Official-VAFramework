@@ -380,12 +380,15 @@ namespace VIS.Helpers
         {
             List<ScreenItem> screens = new List<ScreenItem>();
 
-            var matchedNodes = FlattenNodes(treeNodeCollection)
-                                  .Where(n => n.GetDescription != null &&
-                                         n.GetDescription.Trim().Equals("Y", StringComparison.OrdinalIgnoreCase));
+            var matchedNodes = FlattenNodesWithRoot(treeNodeCollection)
+                                  .Where(n => n.Item1.ShowInSideMenu != null &&
+                                         n.Item1.ShowInSideMenu.Trim().Equals("Y", StringComparison.OrdinalIgnoreCase))
+                                  .OrderBy(n => n.Item1.SeqInSideMenu);
 
-            foreach (VTreeNode vt in matchedNodes)
+            foreach (var pair in matchedNodes)
             {
+                VTreeNode vt = pair.Item1;
+                int rootFolderID = pair.Item2;
                 string action = vt.GetAction().Trim();
                 if (action == "") action = "W";
                 screens.Add(new ScreenItem
@@ -397,23 +400,36 @@ namespace VIS.Helpers
                     SeqNo = vt.SeqNo,
                     IsFav = vt.OnBar,
                     IconClass = menuIcons.ContainsKey(action) ? menuIcons[action] : "fa fa-window-maximize",
-                    Image = vt.Image
+                    Image = vt.Image,
+                    RootFolderID = rootFolderID   // <-- set it
                 });
             }
 
             return screens;
         }
 
-        private IEnumerable<VTreeNode> FlattenNodes(System.Windows.Forms.TreeNodeCollection nodes)
+        private IEnumerable<Tuple<VTreeNode, int>> FlattenNodesWithRoot(System.Windows.Forms.TreeNodeCollection nodes, int rootID = 0)
         {
             foreach (var item in nodes)
             {
                 VTreeNode vt = (VTreeNode)item;
-                yield return vt;
-                foreach (var child in FlattenNodes(vt.Nodes))
+                int currentRoot = vt.Parent_ID == 0 ? vt.Node_ID : rootID;
+                yield return Tuple.Create(vt, currentRoot);
+                foreach (var child in FlattenNodesWithRoot(vt.Nodes, currentRoot))
                     yield return child;
             }
         }
+
+        //private IEnumerable<VTreeNode> FlattenNodes(System.Windows.Forms.TreeNodeCollection nodes)
+        //{
+        //    foreach (var item in nodes)
+        //    {
+        //        VTreeNode vt = (VTreeNode)item;
+        //        yield return vt;
+        //        foreach (var child in FlattenNodes(vt.Nodes))
+        //            yield return child;
+        //    }
+        //}
 
 
 
@@ -1143,6 +1159,8 @@ namespace VIS.Helpers
         public bool IsFav { get; set; }
         public string IconClass { get; set; }
         public string Image { get; set; }
+        public int RootFolderID { get; set; }  // <-- add this
+
 
     }
 
