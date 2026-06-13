@@ -11,6 +11,7 @@
 
 
         this.width = wWidth;
+        this.rawWidth = wWidth; // original percentage as received; this.width gets converted to px below
         this.tabPanels = []; //All object
         this.isShowAll = false;
         this.curTabPanel = null;
@@ -206,6 +207,10 @@
                 $divContent.hide();
             }
 
+            // show/hide resize handle based on panel open/closed state
+            if ($divBody.is('.ui-resizable'))
+                $divBody.children('.ui-resizable-handle').toggle(!this.isClosed);
+
             if (this.sizeChangedListner && this.sizeChangedListner.onSizeChanged)
                 this.sizeChangedListner.onSizeChanged();
 
@@ -341,7 +346,7 @@
         }
         else if (gTab.getIsShowBothTP()) {
             //special
-            this.specialObj = new VTabPanel(this.windowNo, this.width);
+            this.specialObj = new VTabPanel(this.windowNo, this.rawWidth);
             this.specialObj.addSizeChangeListner(this.sizeChangedListner);
             this.specialObj.parent = this;
             this.specialObj.init(gTab, true);
@@ -444,6 +449,8 @@
                             }
                         }
                     })
+                // hide resize handle if panel is closed initially (no default panel)
+                body.children('.ui-resizable-handle').toggle(!this.isClosed);
                // }, 1000); //wait for dom to be ready
             }
         }

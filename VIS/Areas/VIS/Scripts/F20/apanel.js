@@ -2149,8 +2149,20 @@
                     includedMap[gTab.getIncluded_Tab_ID()] = gc;
                 }
 
-                if (gTab.getHasPanel()) {
-                    gc.initTabPanel(gridWindow.getWindowWidth(), curWindowNo);
+                // view-wise: fix the starting view before the panel is built —
+                // getHasPanel/getTabPanels filter by it. initGrid's initial
+                // presentation (single/card default layout) may already have
+                // set the view and built the panel via reloadTabPanelForView.
+                if (gTab.isViewWisePanel() && !gTab.getActiveView()) {
+                    gTab.setActiveView(gc.getCurrentViewCode());
+                }
+                if (gTab.getHasPanel() && !gc.vTabPanel) {
+                    var initPnlW = gridWindow.getWindowWidth();
+                    if (gTab.isViewWisePanel()) {
+                        var viewW = gTab.getPanelWidthForView(gTab.getActiveView());
+                        if (viewW > 0) initPnlW = viewW;
+                    }
+                    gc.initTabPanel(initPnlW, curWindowNo);
                 }
 
                 //	Is this tab included?
@@ -3909,6 +3921,8 @@
             //aChat.setEnabled(true);
         }
 
+        // getHasPanel is view-aware for view-wise tabs (gc.activate just synced
+        // the active view), so this hides the panel when the current view has none.
         this.showTabPanel(!this.actionParams.IsHideTabPanel && this.curTab.getHasPanel());
 
         if (!isAPanelTab && this.showMultiViewOnly) { // in case of compiste and grid mode
