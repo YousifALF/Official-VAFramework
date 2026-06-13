@@ -280,6 +280,7 @@
     <Content Include="Areas\VIS\Content\Widgets\AssignRecordWidget.css" />
     <Content Include="Areas\VIS\Content\Widgets\Checklist.css" />
     <Content Include="Areas\VIS\Content\Widgets\FollowUpsWidget.css" />
+    <Content Include="Areas\VIS\Content\Widgets\NewNoticeWidget.css" />
     <Content Include="Areas\VIS\Content\Widgets\VIS-Widget.css" />
     <Content Include="Areas\VIS\Content\Widgets\VISTemplateExcel.css" />
     <Content Include="Areas\VIS\Images\11.png" />
@@ -864,6 +865,7 @@
     <Content Include="Areas\VIS\Scripts\widgets\actionswidget.js" />
     <Content Include="Areas\VIS\Scripts\widgets\dynamicWidget.js" />
     <Content Include="Areas\VIS\Scripts\widgets\NoticeWidget.js" />
+    <Content Include="Areas\VIS\Scripts\widgets\NewNoticeWidget.js" />
     <Content Include="Areas\VIS\Scripts\widgets\RequestWidget.js" />
     <Content Include="Areas\VIS\Scripts\widgets\WorkflowWidget.js" />
     <Content Include="Areas\VIS\Templates\VIS_Templates.html" />

@@ -106,6 +106,7 @@ import "../app/initialize.js";
 import "../home/usersession.js"
 import "../widgets/WorkflowWidget";
 import "../widgets/NoticeWidget";
+import "../widgets/NewNoticeWidget";
 import "../widgets/RequestWidget";
 import "../widgets/actionswidget";
 import "../widgets/dynamicWidget.js";
