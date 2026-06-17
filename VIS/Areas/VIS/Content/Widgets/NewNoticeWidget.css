@@ -375,7 +375,7 @@
     cursor: pointer;
     display: grid;
     gap: 11px;
-    grid-template-columns: 17px minmax(0, 1fr) auto;
+    grid-template-columns: 17px minmax(0, 1fr) 68px;
     padding: 11px 18px 12px;
     position: relative;
     transition: background 0.12s;
@@ -403,25 +403,40 @@
     display: flex;
     gap: 8px;
     margin-bottom: 4px;
+    min-width: 0;
 }
 
 .vis-new-notice-widget .type-pill {
     align-items: center;
     border-radius: 999px;
     display: inline-flex;
-    flex-shrink: 0;
+    flex: 0 1 auto;
     font-size: 10.5px;
     font-weight: 700;
     gap: 4px;
     letter-spacing: 0.04em;
+    max-width: min(220px, 62%);
+    min-width: 0;
+    overflow: hidden;
     padding: 2px 8px;
+    text-overflow: ellipsis;
     text-transform: uppercase;
+    white-space: nowrap;
 }
 
 .vis-new-notice-widget .type-pill .tp-dot {
     border-radius: 50%;
+    flex: 0 0 auto;
     height: 4px;
     width: 4px;
+}
+
+.vis-new-notice-widget .type-pill-text {
+    display: block;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .vis-new-notice-widget .tp-workflow {
@@ -471,7 +486,9 @@
 
 .vis-new-notice-widget .notice-date {
     color: var(--nnw-text-muted);
+    flex: 0 0 auto;
     font-size: 10.5px;
+    white-space: nowrap;
 }
 
 .vis-new-notice-widget .notice-title {
@@ -503,6 +520,7 @@
     padding-top: 3px;
     text-align: right;
     white-space: nowrap;
+    width: 68px;
 }
 
 .vis-new-notice-widget .notice-time {
@@ -634,7 +652,7 @@ html[dir="rtl"] .vis-new-notice-widget .notice.selected,
 html[dir="rtl"] .vis-new-notice-widget .notice,
 .vis-new-notice-widget[dir="rtl"] .notice {
     direction: ltr;
-    grid-template-columns: 17px minmax(0, 1fr) auto;
+    grid-template-columns: 17px minmax(0, 1fr) 68px;
 }
 
 html[dir="rtl"] .vis-new-notice-widget .notice-cb-wrap,

@@ -28,10 +28,14 @@
         var filteredNotices = [];
         var renderedFilteredCount = 0;
         var isAcknowledging = false;
+        var refreshInterval = null;
 
         this.Initalize = function () {
             createWidget();
             events();
+            refreshInterval = setInterval(function () {
+                $self.refreshWidget();
+            }, 1000 * 60 * 5);
         };
 
         /*
@@ -81,7 +85,7 @@
             });
 
             $popupWrap.find(".vis-new-notice-refresh").on("click", function () {
-                resetAndLoadNotices();
+                $self.refreshWidget();
             });
 
             $popupWrap.on("click", ".fchip", function () {
@@ -175,7 +179,7 @@
                 '        </div>' +
                 '        <div class="pop-list"></div>' +
                 '        <div class="pop-foot">' +
-                '          <span class="ack-all"><span class="vis vis-markx"></span>' + VIS.Utility.encodeText(acknowledgeLabel) + ' ' + VIS.Utility.encodeText(allLabel) + ' <span class="vis-new-notice-total">0</span></span>' +
+                '          <span class="ack-all"><span class="vis vis-markx"></span>' + VIS.Utility.encodeText(acknowledgeLabel) + ' ' + VIS.Utility.encodeText(allLabel) + ' <span class="vis-new-notice-ack-count">0</span></span>' +
                 '        </div>' +
                 '      </section>' +
                 '    </div>' +
@@ -196,6 +200,7 @@
         function resetAndLoadNotices() {
             noticePageNo = 1;
             recordsCount = 0;
+            isLoadingNotices = false;
             hasMoreNotices = true;
             lastRenderedGroup = "";
             messageTypeCounts = {};
@@ -208,7 +213,9 @@
             $noticeList.empty();
             updateTotalCount(0);
             updateMessageTypeChips();
+            updateAcknowledgeAllCount();
             updateSelectionState();
+            $noticeList.scrollTop(0);
             loadNextNoticePage();
         }
 
@@ -240,6 +247,7 @@
                     if (noticePageNo === 1) {
                         recordsCount = VIS.Utility.Util.getValueOfInt(result.count);
                         updateTotalCount(recordsCount);
+                        updateAcknowledgeAllCount();
                         loadMessageTypeCounts(requestVersion);
                     }
 
@@ -363,6 +371,16 @@
             $root.find(".vis-new-notice-badge").text(count);
         }
 
+        function updateAcknowledgeAllCount() {
+            var count = recordsCount;
+
+            if (activeChipFilter) {
+                count = messageTypeCounts[activeChipFilter] || filteredNotices.length || 0;
+            }
+
+            $popupWrap.find(".vis-new-notice-ack-count").text(count);
+        }
+
         function updateMessageTypeChips() {
             var allActive = activeChipFilter === null || activeChipFilter === "";
             var html = '<span class="fchip ' + (allActive ? "active" : "") + '" data-filter="">' + VIS.Utility.encodeText(lbl("All", "All")) + ' <span class="fcount vis-new-notice-total">' + recordsCount + '</span></span>';
@@ -373,6 +391,7 @@
             }
 
             $popupWrap.find(".pop-tools").empty().append(html);
+            updateAcknowledgeAllCount();
         }
 
         function applyChipFilter(filter) {
@@ -399,6 +418,7 @@
 
             updateMessageTypeChips();
             renderNextFilteredNotices();
+            updateAcknowledgeAllCount();
         }
 
         function renderNextFilteredNotices() {
@@ -490,7 +510,7 @@
                 '  <div class="notice-cb-wrap"><span class="checkbox ' + notice.checkboxClass + '">' + checkedMark + '</span></div>' +
                 '  <div class="notice-content">' +
                 '    <div class="notice-toprow">' +
-                '      <span class="type-pill ' + notice.typeClass + '"><span class="tp-dot"></span>' + notice.type + '</span>' +
+                '      <span class="type-pill ' + notice.typeClass + '"><span class="tp-dot"></span><span class="type-pill-text">' + notice.type + '</span></span>' +
                 dateText +
                 '    </div>' +
                 '    <div class="notice-title">' + notice.title + '</div>' +
@@ -511,6 +531,11 @@
         }
 
         function acknowledgeAllNotices() {
+            if (activeChipFilter) {
+                acknowledgeFilteredNotices();
+                return;
+            }
+
             if (allNoticeIds.length > 0) {
                 acknowledgeNoticeIds(allNoticeIds.slice(0));
                 return;
@@ -526,6 +551,26 @@
                 allNoticeIds = ids;
                 acknowledgeNoticeIds(ids);
             });
+        }
+
+        function acknowledgeFilteredNotices() {
+            if (allNoticeRecords.length === 0 && recordsCount > 0) {
+                loadAllNoticeRecords(function () {
+                    acknowledgeFilteredNotices();
+                });
+                return;
+            }
+
+            var ids = [];
+
+            for (var i = 0; i < allNoticeRecords.length; i++) {
+                var msgType = allNoticeRecords[i].MsgType ? allNoticeRecords[i].MsgType : lbl("Notice", "Notice");
+                if (msgType === activeChipFilter) {
+                    ids.push(allNoticeRecords[i].AD_Note_ID);
+                }
+            }
+
+            acknowledgeNoticeIds(ids);
         }
 
         function loadAllNoticeRecords(callback) {
@@ -609,6 +654,7 @@
 
         function closePopup() {
             $popupWrap.removeClass("is-open").attr("aria-hidden", "true");
+            resetAndLoadNotices();
         }
 
         function updateSelectionState() {
@@ -618,6 +664,7 @@
         }
 
         this.refreshWidget = function () {
+            resetAndLoadNotices();
         };
 
         this.getRoot = function () {
@@ -625,6 +672,10 @@
         };
 
         this.disposeComponent = function () {
+            if (refreshInterval) {
+                clearInterval(refreshInterval);
+                refreshInterval = null;
+            }
             $popupWrap.remove();
             $root.remove();
         };
