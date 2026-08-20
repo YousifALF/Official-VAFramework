@@ -122,6 +122,7 @@
              * Approvals                    | VIS_Approvals                       | Approvals
              * Approvals preview            | VIS_ApprovalsPreview                | Approvals preview
              * Search                       | Search                              | Search
+             * Clear                        | Clear                               | Clear
              * From Date                    | VIS_FromDate                        | From Date
              * To Date                      | VIS_ToDate                          | To Date
              * Awaiting your approval       | VIS_AwaitingYourApproval            | Awaiting your approval
@@ -906,6 +907,7 @@
                                         <div class="vis-wf-search">
                                             <i class="fa fa-search" aria-hidden="true"></i>
                                             <input type="text" placeholder="${safeLbl('Search', 'Search')}">
+                                            <i class="fa fa-times vis-wf-search-clear" title="${safeLbl('Clear', 'Clear')}" style="display:none;"></i>
                                         </div>
                                         <div class="vis-wf-date-filters">
                                             <div class="vis-wf-date-filter">
@@ -1047,7 +1049,16 @@
                 }
             });
 
-            $modal.on('click' + modalEventNs, '.vis-wf-search i', function () {
+            $modal.on('click' + modalEventNs, '.vis-wf-search .fa-search', function () {
+                filterCards($modal.find('#' + modalId + 'WindowSelect').val());
+            });
+
+            $modal.on('input' + modalEventNs, '.vis-wf-search input', function () {
+                $(this).siblings('.vis-wf-search-clear').toggle(!!this.value);
+            });
+
+            $modal.on('click' + modalEventNs, '.vis-wf-search-clear', function () {
+                $(this).hide().siblings('input').val('').trigger('focus');
                 filterCards($modal.find('#' + modalId + 'WindowSelect').val());
             });
 
